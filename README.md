@@ -99,13 +99,13 @@ Array
 
 ## TODO
 
-[x] Parse options from array
-[ ] Parse options from string
-[ ] Validates required values
-[ ] Provide default values
-[ ] Parse arguments from array
-[ ] Parse arguments from string
-[ ] Validates existence of arguments
+* [x] Parse options from array
+* [ ] Parse options from string
+* [ ] Validates required values
+* [ ] Provide default values
+* [ ] Parse arguments from array
+* [ ] Parse arguments from string
+* [ ] Validates existence of arguments
 
 ## License
 
