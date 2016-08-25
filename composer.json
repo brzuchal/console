@@ -1,0 +1,8 @@
+{
+  "name": "brzuchal/php-console",
+  "autoload": {
+    "psr-4": {
+      "PHP\\Console\\": "src/"
+    }
+  }
+}
