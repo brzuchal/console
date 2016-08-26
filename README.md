@@ -97,6 +97,15 @@ Array
 )
 ```
 
+There is also `Console` class which helps writing and reading from STDIN, STDERR, STDOUT.
+
+```php
+$console = new \PHP\Console\Console();
+
+$console->writeln("Some output");
+$input = $console->readln();
+```
+
 ## TODO
 
 * [x] Parse options from array
