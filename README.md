@@ -27,43 +27,51 @@ Runtime command line generic components are: `command` + `arguments` + `options`
 The simplest way to retrieve parameters from CLI:
 
 ```php
-$parser = new \PHP\CLI\ArrayParameterParser($_SERVER['argv']);
-$parameters = $parser->parse();
+$parser = new \PHP\CLI\ArrayCommandLineParser($_SERVER['argv']);
+$commandLine = $parser->parse();
 ```
 
 Which for `php test.php command --env=prod --debug -f -c` gives:
 
 ```
-Array
+PHP\CLI\CommandLine Object
 (
-    [0] => PHP\CLI\Option Object
+    [command:protected] => test.php
+    [parameters:protected] => Array
         (
-            [name:PHP\CLI\Option:private] => env
-            [value:PHP\CLI\Option:private] => prod
-            [parameterDefinition:PHP\CLI\Option:private] => 
+            [0] => PHP\CLI\Argument Object
+                (
+                    [name:protected] => arg0
+                    [value:protected] => command
+                )
+
+            [1] => PHP\CLI\Option Object
+                (
+                    [name:protected] => env
+                    [value:protected] => prod
+                )
+
+            [2] => PHP\CLI\Option Object
+                (
+                    [name:protected] => debug
+                    [value:protected] => 
+                )
+
+            [3] => PHP\CLI\Option Object
+                (
+                    [name:protected] => f
+                    [value:protected] => 
+                )
+
+            [4] => PHP\CLI\Option Object
+                (
+                    [name:protected] => c
+                    [value:protected] => 1
+                )
+
         )
 
-    [1] => PHP\CLI\Option Object
-        (
-            [name:PHP\CLI\Option:private] => debug
-            [value:PHP\CLI\Option:private] => 1
-            [parameterDefinition:PHP\CLI\Option:private] => 
-        )
-
-    [2] => PHP\CLI\Option Object
-        (
-            [name:PHP\CLI\Option:private] => f
-            [value:PHP\CLI\Option:private] => 1
-            [parameterDefinition:PHP\CLI\Option:private] => 
-        )
-        
-    [3] => PHP\CLI\Option Object
-        (
-            [name:PHP\CLI\Option:private] => c
-            [value:PHP\CLI\Option:private] => 
-            [parameterDefinition:PHP\CLI\Option:private] => 
-        )
-        
+    [cwd:protected] => /home/mbrzuchalski/Workspace/php-console
 )
 ```
 
@@ -84,32 +92,44 @@ Which also validates if options have values and are required.
 Parsing command `php test.php command --env=prod --debug -f -c` gives:
 
 ```
-Array
+PHP\CLI\CommandLine Object
 (
-    [0] => PHP\CLI\Option Object
+    [command:protected] => test.php
+    [parameters:protected] => Array
         (
-            [name:PHP\CLI\Option:private] => env
-            [value:PHP\CLI\Option:private] => prod
+            [0] => PHP\CLI\Argument Object
+                (
+                    [name:protected] => command
+                    [value:protected] => command
+                )
+
+            [1] => PHP\CLI\Option Object
+                (
+                    [name:protected] => env
+                    [value:protected] => prod
+                )
+
+            [2] => PHP\CLI\Option Object
+                (
+                    [name:protected] => debug
+                    [value:protected] => 
+                )
+
+            [3] => PHP\CLI\Option Object
+                (
+                    [name:protected] => file
+                    [value:protected] => 
+                )
+
+            [4] => PHP\CLI\Option Object
+                (
+                    [name:protected] => count
+                    [value:protected] => 1
+                )
+
         )
 
-    [1] => PHP\CLI\Option Object
-        (
-            [name:PHP\CLI\Option:private] => debug
-            [value:PHP\CLI\Option:private] => 1
-        )
-
-    [2] => PHP\CLI\Option Object
-        (
-            [name:PHP\CLI\Option:private] => file
-            [value:PHP\CLI\Option:private] => 1
-        )
-
-    [3] => PHP\CLI\Option Object
-        (
-            [name:PHP\CLI\Option:private] => count
-            [value:PHP\CLI\Option:private] => 1
-        )
-
+    [cwd:protected] => /home/mbrzuchalski/Workspace/php-console
 )
 ```
 
