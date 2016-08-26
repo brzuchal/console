@@ -5,11 +5,11 @@
  * Date: 25.08.16
  * Time: 12:05
  */
-namespace PHP\Console;
+namespace PHP\CLI;
 
 /**
  * Interface Parameter
- * @package PHP\Console
+ * @package PHP\CLI
  * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
  */
 interface Parameter

@@ -5,22 +5,42 @@
  * Date: 25.08.16
  * Time: 12:06
  */
-namespace PHP\Console;
+namespace PHP\CLI;
 
 /**
  * Class Argument
- * @package PHP\Console
+ * @package PHP\CLI
  * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
  */
 class Argument implements Parameter
 {
+    /**
+     * @var string Holds argument name
+     */
+    protected $name;
+    /**
+     * @var mixed Holds argument value
+     */
+    protected $value;
+
+    /**
+     * Argument constructor.
+     * @param string $name Name
+     * @param $value
+     */
+    public function __construct(string $name, $value)
+    {
+        $this->name = $name;
+        $this->value = $value;
+    }
+
     /**
      * Retrieves argument name
      * @return string
      */
     public function getName() : string
     {
-        // TODO: Implement getName() method.
+        return $this->name;
     }
     
     /**
@@ -29,7 +49,7 @@ class Argument implements Parameter
      */
     public function hasValue() : bool
     {
-        // TODO: Implement hasValue() method.
+        return !empty($this->value);
     }
 
     /**
@@ -38,6 +58,6 @@ class Argument implements Parameter
      */
     public function getValue() : string
     {
-        // TODO: Implement getValue() method.
+        return $this->value;
     }
 }

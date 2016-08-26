@@ -3,7 +3,23 @@ PHP Console and Parameter Handling
 
 Purpose of this project is to provide modern and complete API for console and parameter handling in CLI.
 
-## Install
+## CommandLine generics
+
+When you type `ENV=prod php -d "error_reporting=E_ALL" script.php test --debug` only last command line components are visible
+in `script.php` scope at runtime.
+
+Following analysis such command line consists of:
+
+```
+ENV=prod                   // this is shell way for setting environment variables per process
+php                        // this part is pointing to php interpreter
+-d "error_reporting=E_ALL" // this part holds php interpreter options
+script.php                 // visible at runtime script filename
+test                       // visible at runtime arguments
+--debug                    // visible at runtime options
+```
+
+Runtime command line generic components are: `command` + `arguments` + `options`.
 
 
 ## Examples
@@ -11,7 +27,7 @@ Purpose of this project is to provide modern and complete API for console and pa
 The simplest way to retrieve parameters from CLI:
 
 ```php
-$parser = new \PHP\Console\ArrayParameterParser($_SERVER['argv']);
+$parser = new \PHP\CLI\ArrayParameterParser($_SERVER['argv']);
 $parameters = $parser->parse();
 ```
 
@@ -20,32 +36,32 @@ Which for `php test.php command --env=prod --debug -f -c` gives:
 ```
 Array
 (
-    [0] => PHP\Console\Option Object
+    [0] => PHP\CLI\Option Object
         (
-            [name:PHP\Console\Option:private] => env
-            [value:PHP\Console\Option:private] => prod
-            [parameterDefinition:PHP\Console\Option:private] => 
+            [name:PHP\CLI\Option:private] => env
+            [value:PHP\CLI\Option:private] => prod
+            [parameterDefinition:PHP\CLI\Option:private] => 
         )
 
-    [1] => PHP\Console\Option Object
+    [1] => PHP\CLI\Option Object
         (
-            [name:PHP\Console\Option:private] => debug
-            [value:PHP\Console\Option:private] => 1
-            [parameterDefinition:PHP\Console\Option:private] => 
+            [name:PHP\CLI\Option:private] => debug
+            [value:PHP\CLI\Option:private] => 1
+            [parameterDefinition:PHP\CLI\Option:private] => 
         )
 
-    [2] => PHP\Console\Option Object
+    [2] => PHP\CLI\Option Object
         (
-            [name:PHP\Console\Option:private] => f
-            [value:PHP\Console\Option:private] => 1
-            [parameterDefinition:PHP\Console\Option:private] => 
+            [name:PHP\CLI\Option:private] => f
+            [value:PHP\CLI\Option:private] => 1
+            [parameterDefinition:PHP\CLI\Option:private] => 
         )
         
-    [3] => PHP\Console\Option Object
+    [3] => PHP\CLI\Option Object
         (
-            [name:PHP\Console\Option:private] => c
-            [value:PHP\Console\Option:private] => 
-            [parameterDefinition:PHP\Console\Option:private] => 
+            [name:PHP\CLI\Option:private] => c
+            [value:PHP\CLI\Option:private] => 
+            [parameterDefinition:PHP\CLI\Option:private] => 
         )
         
 )
@@ -54,13 +70,13 @@ Array
 There is also a way to retrieve parameters with it's definitions and their requirements:
 
 ```php
-$definition = new \PHP\Console\Definition([
-    new \PHP\Console\ArgumentDefinition('command'),
-    new \PHP\Console\OptionDefinition('env', 'e'),
-    new \PHP\Console\OptionDefinition('file', 'f'),
-    new \PHP\Console\OptionDefinition('count', 'c'),
+$definition = new \PHP\CLI\Definition([
+    new \PHP\CLI\ArgumentDefinition('command'),
+    new \PHP\CLI\OptionDefinition('env', 'e'),
+    new \PHP\CLI\OptionDefinition('file', 'f'),
+    new \PHP\CLI\OptionDefinition('count', 'c'),
 ]);
-$parser = new \PHP\Console\ArrayParameterParser($_SERVER['argv']);
+$parser = new \PHP\CLI\ArrayParameterParser($_SERVER['argv']);
 $parameters = $parser->parse();
 ```
 
@@ -70,28 +86,28 @@ Parsing command `php test.php command --env=prod --debug -f -c` gives:
 ```
 Array
 (
-    [0] => PHP\Console\Option Object
+    [0] => PHP\CLI\Option Object
         (
-            [name:PHP\Console\Option:private] => env
-            [value:PHP\Console\Option:private] => prod
+            [name:PHP\CLI\Option:private] => env
+            [value:PHP\CLI\Option:private] => prod
         )
 
-    [1] => PHP\Console\Option Object
+    [1] => PHP\CLI\Option Object
         (
-            [name:PHP\Console\Option:private] => debug
-            [value:PHP\Console\Option:private] => 1
+            [name:PHP\CLI\Option:private] => debug
+            [value:PHP\CLI\Option:private] => 1
         )
 
-    [2] => PHP\Console\Option Object
+    [2] => PHP\CLI\Option Object
         (
-            [name:PHP\Console\Option:private] => file
-            [value:PHP\Console\Option:private] => 1
+            [name:PHP\CLI\Option:private] => file
+            [value:PHP\CLI\Option:private] => 1
         )
 
-    [3] => PHP\Console\Option Object
+    [3] => PHP\CLI\Option Object
         (
-            [name:PHP\Console\Option:private] => count
-            [value:PHP\Console\Option:private] => 1
+            [name:PHP\CLI\Option:private] => count
+            [value:PHP\CLI\Option:private] => 1
         )
 
 )
@@ -100,7 +116,7 @@ Array
 There is also `Console` class which helps writing and reading from STDIN, STDERR, STDOUT.
 
 ```php
-$console = new \PHP\Console\Console();
+$console = new \PHP\CLI\Console();
 
 $console->writeln("Some output");
 $input = $console->readln();

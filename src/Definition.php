@@ -5,11 +5,11 @@
  * Date: 25.08.16
  * Time: 12:32
  */
-namespace PHP\Console;
+namespace PHP\CLI;
 
 /**
  * Class Definition
- * @package PHP\Console
+ * @package PHP\CLI
  * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
  */
 class Definition
@@ -60,6 +60,25 @@ class Definition
                 return $definition;
             }
         }
+
+        throw new \OutOfBoundsException("Missing argument definition name: {$name}");
+    }
+
+    /**
+     * Retrieve argument definition by name
+     * @param int $position
+     * @return ArgumentDefinition
+     */
+    public function getArgumentDefinitionAtPosition(int $position) : ArgumentDefinition
+    {
+        $index = 0;
+        foreach ($this->definitions as $definition) {
+            if ($definition instanceof ArgumentDefinition && $index++ == $position) {
+                return $definition;
+            }
+        }
+
+        throw new \OutOfBoundsException("Missing argument definition at position: {$position}");
     }
 
     /**
@@ -94,5 +113,7 @@ class Definition
                 }
             }
         }
+
+        throw new \OutOfBoundsException("Missing option definition name: {$name}");
     }
 }

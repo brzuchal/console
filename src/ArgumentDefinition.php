@@ -5,22 +5,37 @@
  * Date: 25.08.16
  * Time: 12:30
  */
-namespace PHP\Console;
+namespace PHP\CLI;
 
 /**
  * Class ArgumentDefinition
- * @package PHP\Console
+ * @package PHP\CLI
  * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
  */
 class ArgumentDefinition implements ParameterDefinition
 {
+    /**
+     * @var string Holds argument name
+     */
+    protected $name;
+    /**
+     * @var bool Holds argument existence requirement
+     */
+    protected $required;
+
+    public function __construct(string $name, bool $required = false)
+    {
+        $this->name = $name;
+        $this->required = $required;
+    }
+
     /**
      * Retrieve argument name
      * @return string
      */
     public function getName() : string
     {
-        // TODO: Implement getName() method.
+        return $this->name;
     }
 
     /**
@@ -29,15 +44,6 @@ class ArgumentDefinition implements ParameterDefinition
      */
     public function isRequired() : bool
     {
-        // TODO: Implement isRequired() method.
-    }
-
-    /**
-     * Checks if value is required
-     * @return bool
-     */
-    public function isValueRequired() : bool
-    {
-        // TODO: Implement isValueRequired() method.
+        return $this->required;
     }
 }

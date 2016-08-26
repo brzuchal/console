@@ -5,11 +5,11 @@
  * Date: 25.08.16
  * Time: 12:16
  */
-namespace PHP\Console;
+namespace PHP\CLI;
 
 /**
  * Class Option
- * @package PHP\Console
+ * @package PHP\CLI
  * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
  */
 class Option implements Parameter
@@ -17,11 +17,11 @@ class Option implements Parameter
     /**
      * @var string Holds option name
      */
-    private $name;
+    protected $name;
     /**
      * @var string|bool Holds option value
      */
-    private $value;
+    protected $value;
 
     /**
      * Option constructor.

@@ -5,14 +5,14 @@
  * Date: 25.08.16
  * Time: 12:08
  */
-namespace PHP\Console;
+namespace PHP\CLI;
 
 /**
  * Interface ParameterParser
- * @package PHP\Console
+ * @package PHP\CLI
  * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
  */
-interface ParameterParser
+interface CommandLineParser
 {
-    public function parse() : array;
+    public function parse() : CommandLine;
 }

@@ -5,11 +5,11 @@
  * Date: 25.08.16
  * Time: 12:37
  */
-namespace PHP\Console;
+namespace PHP\CLI;
 
 /**
  * Class OptionDefinition
- * @package PHP\Console
+ * @package PHP\CLI
  * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
  */
 class OptionDefinition implements ParameterDefinition
@@ -17,19 +17,19 @@ class OptionDefinition implements ParameterDefinition
     /**
      * @var string Option name
      */
-    private $name;
+    protected $name;
     /**
      * @var string Option short name
      */
-    private $shortName;
+    protected $shortName;
     /**
      * @var bool Require flag
      */
-    private $required;
+    protected $required;
     /**
      * @var bool value require flag
      */
-    private $valueRequired;
+    protected $valueRequired;
 
     /**
      * OptionDefinition constructor.
