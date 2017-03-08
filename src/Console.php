@@ -1,18 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mbrzuchalski
- * Date: 25.08.16
- * Time: 12:04
- */
-namespace PHP\CLI;
+<?php declare(strict_types=1);
+namespace Brzuchal\Console;
 
-
-/**
- * Class Console
- * @package PHP\CLI
- * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
- */
 class Console
 {
     /**
@@ -28,64 +16,58 @@ class Console
      */
     protected $error;
 
-    /**
-     * Console constructor.
-     * @param resource $input
-     * @param resource $output
-     * @param resource $error
-     */
     public function __construct($input = null, $output = null, $error = null)
     {
-        if (is_null($input)) {
-            $this->input = fopen('php://STDIN', 'r');
+        if (null === $input) {
+            $this->input = \fopen('php://STDIN', 'rb');
         } else {
-            if (!@fstat($input)) {
+            if (!@\fstat($input)) {
                 throw new \InvalidArgumentException('Invalid input stream given');
             }
             $this->input = $input;
         }
-        if (is_null($output)) {
-            $this->output = fopen('php://STDOUT', 'r');
+        if (null === $output) {
+            $this->output = \fopen('php://STDOUT', 'rb');
         } else {
-            if (!@fstat($output)) {
+            if (!@\fstat($output)) {
                 throw new \InvalidArgumentException('Invalid output stream given');
             }
             $this->output = $output;
         }
-        if (is_null($error)) {
-            $this->error = fopen('php://STDERR', 'r');
+        if (null === $error) {
+            $this->error = \fopen('php://STDERR', 'rb');
         } else {
-            if (!@fstat($error)) {
+            if (!@\fstat($error)) {
                 throw new \InvalidArgumentException('Invalid error stream given');
             }
             $this->error = $error;
         }
     }
 
-    public function write(string $message)
+    public function write(string $message) : void
     {
-        fwrite($this->output, $message);
+        \fwrite($this->output, $message);
     }
 
-    public function writeln(string $message)
+    public function writeln(string $message) : void
     {
         $this->write($message . PHP_EOL);
     }
 
-    public function dump($variable)
+    public function dump($variable) : void
     {
-        $this->write(print_r($variable, true));
+        $this->write(\print_r($variable, true));
     }
 
     public function read(int $length = 128) : string
     {
-        return fread($this->input, $length);
+        return \fread($this->input, $length);
     }
 
     public function readln(string $prompt = '') : string
     {
         $this->write($prompt);
 
-        return stream_get_line($this->input, 1024, PHP_EOL);
+        return \stream_get_line($this->input, 1024, PHP_EOL);
     }
 }

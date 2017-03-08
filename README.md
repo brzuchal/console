@@ -27,7 +27,7 @@ Runtime command line generic components are: `command` + `arguments` + `options`
 The simplest way to retrieve parameters from CLI:
 
 ```php
-$parser = new \PHP\CLI\ArrayCommandLineParser($_SERVER['argv']);
+$parser = new \Brzuchal\Console\ArrayCommandLineParser($_SERVER['argv']);
 $commandLine = $parser->parse();
 ```
 
@@ -78,13 +78,13 @@ PHP\CLI\CommandLine Object
 There is also a way to retrieve parameters with it's definitions and their requirements:
 
 ```php
-$definition = new \PHP\CLI\Definition([
-    new \PHP\CLI\ArgumentDefinition('command'),
-    new \PHP\CLI\OptionDefinition('env', 'e'),
-    new \PHP\CLI\OptionDefinition('file', 'f'),
-    new \PHP\CLI\OptionDefinition('count', 'c'),
+$definition = new \Brzuchal\Console\Definition([
+    new \Brzuchal\Console\ArgumentDefinition('command'),
+    new \Brzuchal\Console\OptionDefinition('env', 'e'),
+    new \Brzuchal\Console\OptionDefinition('file', 'f'),
+    new \Brzuchal\Console\OptionDefinition('count', 'c'),
 ]);
-$parser = new \PHP\CLI\ArrayParameterParser($_SERVER['argv']);
+$parser = new \Brzuchal\Console\ArrayParameterParser($_SERVER['argv']);
 $parameters = $parser->parse();
 ```
 
@@ -136,7 +136,7 @@ PHP\CLI\CommandLine Object
 There is also `Console` class which helps writing and reading from STDIN, STDERR, STDOUT.
 
 ```php
-$console = new \PHP\CLI\Console();
+$console = new \Brzuchal\Console\Console();
 
 $console->writeln("Some output");
 $input = $console->readln();

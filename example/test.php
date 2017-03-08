@@ -1,6 +1,5 @@
-<?php
-
-require_once "vendor/autoload.php";
+<?php declare(strict_types=1);
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $exclude = 'XDG_SEAT|XDG_SESSION_ID|LC_IDENTIFICATION|GIO_LAUNCHED_DESKTOP_FILE_PID|' .
     'GNOME_KEYRING_CONTROL|GNOME_DESKTOP_SESSION_ID|DEFAULTS_PATH|QT_QPA_PLATFORMTHEME|JAVA_HOME|' .
@@ -14,13 +13,13 @@ $exclude = 'XDG_SEAT|XDG_SESSION_ID|LC_IDENTIFICATION|GIO_LAUNCHED_DESKTOP_FILE_
     'RANCHER_URL|RANCHER_ACCESSS_KEY|RANCHER_SECRET_KAY|PHPBREW_HOME|PHPBREW_ROOT|PHPBREW_LOOKUP_PREFIX|PHPBREW_PHP|PHPBREW_PATH|' .
     'PATH_WITHOUT_PHPBREW|PHPBREW_BIN|PHPBREW_VERSION_REGEX|UPSTART_JOB';
 
-foreach (explode('|', $exclude) as $key) {
+foreach (\explode('|', $exclude) as $key) {
     unset($_SERVER[$key]);
 }
-ksort($_SERVER);
+\ksort($_SERVER);
 
-//$console = new \PHP\CLI\Console(null, fopen('test.log', 'w+'));
-$console = new \PHP\CLI\Console();
+//$console = new \Brzuchal\Console\Console(null, fopen('test.log', 'w+'));
+$console = new \Brzuchal\Console\Console();
 $console->writeln("\033[0;37m==============================================================\033[0m");
 //$console->dump($console);
 //$command = [
@@ -40,16 +39,16 @@ $console->writeln("\033[0;37m===================================================
 //$console->dump($_SERVER);
 
 
-$definition = new \PHP\CLI\Definition([
-    new \PHP\CLI\ArgumentDefinition('command'),
-    new \PHP\CLI\OptionDefinition('env', 'e'),
-    new \PHP\CLI\OptionDefinition('file', 'f'),
-    new \PHP\CLI\OptionDefinition('count', 'c'),
+$definition = new \Brzuchal\Console\CommandLineDefinition([
+    new \Brzuchal\Console\ArgumentDefinition('command'),
+    new \Brzuchal\Console\OptionDefinition('env', 'e'),
+    new \Brzuchal\Console\OptionDefinition('file', 'f'),
+    new \Brzuchal\Console\OptionDefinition('count', 'c'),
 ]);
 
-$parser = new \PHP\CLI\ArrayCommandLineParser($_SERVER['argv'], $_SERVER['PWD'], $definition);
+$parser = new \Brzuchal\Console\ArrayCommandLineParser($_SERVER['argv'], $_SERVER['PWD'], $definition);
 
-/** @var \PHP\CLI\CommandLine $commandLine */
+/** @var \Brzuchal\Console\CommandLine $commandLine */
 $commandLine = $parser->parse();
 
 $console->dump($commandLine);
@@ -77,7 +76,7 @@ $examples = [
 
 $flatten = function (array $parameters) {
     $result = [];
-    /** @var \PHP\CLI\Parameter[] $parameters */
+    /** @var \Brzuchal\Console\Parameter[] $parameters */
     foreach ($parameters as $parameter) {
         $result[$parameter->getName()] = $parameter->getValue();
     }
@@ -87,7 +86,7 @@ $flatten = function (array $parameters) {
 
 foreach ($examples as $example) {
     printf("\033[0;37mParsing: \033[0;32m%s\033[0m\n", implode(' ', $example));
-    $arrayParser = new \PHP\CLI\ArrayCommandLineParser($example, $definition);
+    $arrayParser = new \Brzuchal\Console\ArrayCommandLineParser($example, $definition);
     $commandLine = $arrayParser->parse();
     $flatParams = $flatten($commandLine);
     if ((array_key_exists('env', $flatParams) && $flatParams['env'] != 'prod') || !array_key_exists('env', $flatParams)) {
@@ -106,7 +105,7 @@ foreach ($examples as $example) {
     }
 
     print("\033[0;37mAlternatively parsed params (without definition)\033[0m\n");
-    $arrayParser = new \PHP\CLI\ArrayCommandLineParser($example);
+    $arrayParser = new \Brzuchal\Console\ArrayCommandLineParser($example);
     $altParameters = $flatten($arrayParser->parse());
     print_r($altParameters);
 

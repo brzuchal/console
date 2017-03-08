@@ -1,17 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mbrzuchalski
- * Date: 25.08.16
- * Time: 12:30
- */
-namespace PHP\CLI;
+<?php declare(strict_types=1);
+namespace Brzuchal\Console;
 
-/**
- * Class ArgumentDefinition
- * @package PHP\CLI
- * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
- */
 class ArgumentDefinition implements ParameterDefinition
 {
     /**
@@ -29,19 +18,11 @@ class ArgumentDefinition implements ParameterDefinition
         $this->required = $required;
     }
 
-    /**
-     * Retrieve argument name
-     * @return string
-     */
     public function getName() : string
     {
         return $this->name;
     }
 
-    /**
-     * Checks if argument is required
-     * @return bool
-     */
     public function isRequired() : bool
     {
         return $this->required;

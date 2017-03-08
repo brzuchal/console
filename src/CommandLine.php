@@ -1,19 +1,8 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mbrzuchalski
- * Date: 26.08.16
- * Time: 09:43
- */
-namespace PHP\CLI;
+<?php declare(strict_types=1);
+namespace Brzuchal\Console;
 
 use InvalidArgumentException;
 
-/**
- * Class Command
- * @package PHP\CLI
- * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
- */
 class CommandLine
 {
     /**
@@ -46,24 +35,15 @@ class CommandLine
         $this->cwd = $cwd;
     }
 
-    /**
-     * Retrieves command name
-     * @return string
-     */
     public function getCommand() : string
     {
         return $this->command;
     }
 
-    /**
-     * Checks if argument exists by name
-     * @param string $name Argument name
-     * @return bool
-     */
     public function hasArgument(string $name) : bool
     {
         foreach ($this->parameters as $parameter) {
-            if ($parameter instanceof Argument && $parameter->getName() == $name) {
+            if ($parameter instanceof Argument && $parameter->getName() === $name) {
                 return true;
             }
         }
@@ -71,29 +51,21 @@ class CommandLine
         return false;
     }
 
-    /**
-     * Retrieve argument by name
-     * @param string $name Argument name
-     * @return Argument
-     */
-    public function getArgument(string $name) : Argument
+    public function getArgument(string $name) : ?Argument
     {
         foreach ($this->parameters as $parameter) {
-            if ($parameter instanceof Argument && $parameter->getName() == $name) {
+            if ($parameter instanceof Argument && $parameter->getName() === $name) {
                 return $parameter;
             }
         }
+
+        return null;
     }
 
-    /**
-     * Checks if option exists by name
-     * @param string $name
-     * @return bool
-     */
     public function hasOption(string $name) : bool
     {
         foreach ($this->parameters as $parameter) {
-            if ($parameter instanceof Option && $parameter->getName() == $name) {
+            if ($parameter instanceof Option && $parameter->getName() === $name) {
                 return true;
             }
         }
@@ -101,24 +73,17 @@ class CommandLine
         return false;
     }
 
-    /**
-     * Retrieve option by name
-     * @param string $name
-     * @return Option
-     */
-    public function getOption(string $name) : Option
+    public function getOption(string $name) : ?Option
     {
         foreach ($this->parameters as $parameter) {
-            if ($parameter instanceof Option && $parameter->getName() == $name) {
+            if ($parameter instanceof Option && $parameter->getName() === $name) {
                 return $parameter;
             }
         }
+
+        return null;
     }
 
-    /**
-     * retrieves current working directory
-     * @return string
-     */
     public function getCwd() : string
     {
         return $this->cwd;

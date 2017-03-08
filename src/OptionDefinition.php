@@ -1,17 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: mbrzuchalski
- * Date: 25.08.16
- * Time: 12:37
- */
-namespace PHP\CLI;
+<?php declare(strict_types=1);
+namespace Brzuchal\Console;
 
-/**
- * Class OptionDefinition
- * @package PHP\CLI
- * @author Michał Brzuchalski <m.brzuchalski@madkom.pl>
- */
 class OptionDefinition implements ParameterDefinition
 {
     /**
@@ -31,13 +20,6 @@ class OptionDefinition implements ParameterDefinition
      */
     protected $valueRequired;
 
-    /**
-     * OptionDefinition constructor.
-     * @param string $name Name
-     * @param string $shortName Short name
-     * @param bool $required Require flag
-     * @param bool $valueRequired Value required flag
-     */
     public function __construct(string $name, string $shortName, bool $required = false, bool $valueRequired = false)
     {
         $this->name = $name;
@@ -46,37 +28,21 @@ class OptionDefinition implements ParameterDefinition
         $this->valueRequired = $valueRequired;
     }
 
-    /**
-     * Retrieve option name
-     * @return string
-     */
     public function getName() : string
     {
         return $this->name;
     }
 
-    /**
-     * Retrieve option short name
-     * @return string
-     */
     public function getShortName() : string
     {
         return $this->shortName;
     }
 
-    /**
-     * Checks if option is required
-     * @return bool
-     */
     public function isRequired() : bool
     {
         return $this->required;
     }
 
-    /**
-     * Checks if option value is required
-     * @return bool
-     */
     public function isValueRequired() : bool
     {
         return $this->valueRequired;
