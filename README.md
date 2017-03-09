@@ -148,7 +148,7 @@ $input = $console->readln();
 * [ ] Parse options from string
 * [ ] Validates required values
 * [ ] Provide default values
-* [ ] Parse arguments from array
+* [x] Parse arguments from array
 * [ ] Parse arguments from string
 * [ ] Validates existence of arguments
 
