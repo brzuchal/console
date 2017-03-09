@@ -10,7 +10,7 @@ class CommandLine
      */
     protected $command;
     /**
-     * @var Parameter[] Holds arguments and options
+     * @var Parameter[] Holds parameters and options
      */
     protected $parameters = [];
     /**
@@ -87,5 +87,15 @@ class CommandLine
     public function getCwd() : string
     {
         return $this->cwd;
+    }
+
+    public function toArray() : array
+    {
+        $result = [];
+        foreach ($this->parameters as $parameter) {
+            $result[$parameter->getName()] = $parameter->getValue();
+        }
+
+        return $result;
     }
 }

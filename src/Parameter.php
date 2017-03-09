@@ -5,5 +5,5 @@ interface Parameter
 {
     public function getName() : string;
     public function hasValue() : bool;
-    public function getValue() : string;
+    public function getValue() : ?string;
 }

@@ -28,7 +28,7 @@ class Argument implements Parameter
         return !empty($this->value);
     }
 
-    public function getValue() : string
+    public function getValue() : ?string
     {
         return $this->value;
     }
