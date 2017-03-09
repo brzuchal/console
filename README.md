@@ -24,7 +24,17 @@ Runtime command line generic components are: `command` + `arguments` + `options`
 
 ## Examples
 
-The simplest way to retrieve parameters from CLI:
+The simplest way to retrieve parameters from CLI with definitions:
+
+```php
+$commandLine = (new \Brzuchal\Console\CommandLineBuilder())
+    ->withArgument('command')
+    ->withOption('file', 'f')
+    ->withOption('count', 'c', true)
+    ->build($_SERVER['argv'], $_SERVER['PWD']);
+```
+
+The simplest way to retrieve parameters from CLI without definition:
 
 ```php
 $parser = new \Brzuchal\Console\ArrayCommandLineParser($_SERVER['argv']);
